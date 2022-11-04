@@ -7,7 +7,7 @@ POST /operators/
     name: str
     power: float
     type: str(provider or consumer)
-    threshold_temperature: float. null for type=operator
+    threshold_temperature: float. null for type=consumer
     latitude: float
     longitude: float
 
