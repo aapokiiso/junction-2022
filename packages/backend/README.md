@@ -12,6 +12,7 @@ POST /operators/
 - longitude: float
 
 GET /operators/
-GET /operators/<id>/
+
+GET /operators/id/
 - from POST /operators/
--neighbors: list of ids
+- neighbors: list of ids
