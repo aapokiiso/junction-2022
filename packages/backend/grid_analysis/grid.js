@@ -14,21 +14,22 @@ module.exports = async () => {
         'select * from nodes'
     );
 
-    
+
     const [links_results] = await connection.execute(
         'select * from links'
     );
+    connection.end();
 
 
     const get_return_temperature_flow = (nodes, links, start_node, temperature, flow, total_flow,direction) => {
-        
+
         if (nodes.find(x=> x.name == start_node).type == "consumer") {
             // console.log("HERE?")
             // console.log(nodes.find(x=> x.name == start_node))
             return [temperature- nodes.find(x=> x.name == start_node).deltaT, flow]
         }
 
-        
+
 
         const next_nodes = links.filter(x => x.source == start_node)
 
