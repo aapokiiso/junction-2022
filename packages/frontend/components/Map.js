@@ -20,6 +20,7 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
       style: 'mapbox://styles/mapbox/dark-v10',
       center: [24.8322152, 60.1875592], // Otaniemi
       zoom: 16,
+      minZoom: 16,
     })
 
     map.current.on('load', () => {
