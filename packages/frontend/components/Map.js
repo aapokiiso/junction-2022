@@ -13,9 +13,28 @@ function Map() {
 
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/dark-v10',
             center: [24.8322152, 60.1875592], // Otaniemi
             zoom: 14,
+        })
+
+        map.current.on('load', () => {
+            console.log(map.current)
+
+            map.current.addLayer(
+                {
+                    'id': 'buildings-highlighted',
+                    'type': 'fill',
+                    'source': 'composite',
+                    'source-layer': 'building',
+                    'paint': {
+                        'fill-outline-color': '#f00',
+                        'fill-color': '#f00',
+                        'fill-opacity': 0.5
+                    },
+                },
+                'settlement-label'
+            );
         })
     })
 
