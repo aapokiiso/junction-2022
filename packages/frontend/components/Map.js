@@ -14,6 +14,8 @@ function Map() {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
+            center: [24.8322152, 60.1875592], // Otaniemi
+            zoom: 14,
         })
     })
 
