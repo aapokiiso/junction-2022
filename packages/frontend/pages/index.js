@@ -3,20 +3,47 @@ import { Dropdown } from 'react-dropdown-now';
 import 'react-dropdown-now/style.css';
 import Draggable from 'react-draggable';
 import Map from '../components/Map'
-import {fetchNodes, fetchEdges} from '../utils/api'
+import {fetchNodes, fetchEdges, updateDeltaTForBuilding} from '../utils/api'
 import Head from 'next/head'
 
 export default function Index() {
   const [nodes, setNodes] = useState(null);
   const [edges, setEdges] = useState(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
+  const [selectedNodeName, setNodeName] = useState(null);
+  const [deltaTValue, setDeltaTValue] = useState('');
 
   const handleNodeSelect = (nodeId) => {
     setSelectedNodeId(nodeId)
   }
 
+  const handleDeltaTChange = (event) => {
+    setDeltaTValue(parseInt(event.target.value,10))
+  }
+
+  const handleFormSubmit = async (event) => {
+    console.log(deltaTValue)
+
+    updateDeltaTForBuilding(selectedNodeId, deltaTValue).then(
+      ()=> {
+        fetchNodes()
+        .then(nodes => {
+          setNodes(nodes)
+        })
+
+      }
+    )
+
+    event.preventDefault();
+
+  }
+
   useEffect(() => {
     if (selectedNodeId) {
+      console.log("click building")
+      let currentNode = nodes.find(x => x.id==selectedNodeId);
+      setNodeName(currentNode.name);
+      setDeltaTValue(currentNode.deltaT);
       // TODO: open editor
     }
   }, [selectedNodeId]);
@@ -58,6 +85,13 @@ export default function Index() {
       <div className="App-body">
         <div className="row">
           <div className="column-left">
+            <div id="building-parameters" style={{"display": selectedNodeId ? "block" : "none"}}>
+              <h2>Set Delta T for {selectedNodeName}</h2>
+              <form onSubmit={handleFormSubmit}>
+                <input type="number" min="0" max="100" name="deltaT" value={deltaTValue} onChange={handleDeltaTChange} />
+                <input type="submit"  />
+              </form>
+            </div>
             <h2>Set desired parameters</h2>
             <div className="infoText" >Choose an area:</div>
             <Dropdown
