@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   backend:
-    image: node:16
     build:
       context: packages/backend
     command: npm run dev
@@ -19,11 +18,9 @@ services:
       - backend
 
   frontend:
-    image: node:16
     build:
       context: packages/frontend
     command: npm run dev
-
     working_dir: /usr/src/app
     env_file: .dev.env
     depends_on:
