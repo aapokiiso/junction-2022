@@ -1,5 +1,11 @@
-function HomePage() {
-    return <div>Welcome to Next.js!</div>
+import Map from '../components/Map'
+
+function Index() {
+    return (
+        <main>
+            <Map />
+        </main>
+    )
 }
 
-export default HomePage
+export default Index
