@@ -1,29 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import Map from '../components/Map'
+import {fetchNodes, fetchEdges} from '../utils/api'
+import styles from './index.module.css'
 
-const fetchNodes = async () => {
-  const response = await fetch('https://backend-dot-junction-2022-367623.lm.r.appspot.com/nodes');
-
-  const nodes = await response.json()
-
-  return nodes.map(node => {
-    node.latitude = Number(node.latitude.replace(',', '.'))
-    node.longitude = Number(node.longitude.replace(',', '.'))
-    node.mapboxId = node.mapboxid;
-
-    return node
-  })
-}
-
-const fetchEdges = async () => {
-  const response = await fetch('https://backend-dot-junction-2022-367623.lm.r.appspot.com/edges');
-
-  const edges = await response.json()
-
-  return edges.map(({source, target}) => [source, target])
-}
-
-function Index () {
+function App () {
   const [nodes, setNodes] = useState(null);
   const [edges, setEdges] = useState(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
@@ -52,9 +32,16 @@ function Index () {
 
   return (
     <main>
-        {nodes && edges && <Map nodes={nodes} edges={edges} selectedNodeId={selectedNodeId} handleNodeSelect={handleNodeSelect} />}
+        {nodes && edges && <div className={styles.mapContainer}>
+          <Map
+            nodes={nodes}
+            edges={edges}
+            selectedNodeId={selectedNodeId}
+            handleNodeSelect={handleNodeSelect}
+          />
+        </div>}
     </main>
   )
 }
 
-export default Index
+export default App

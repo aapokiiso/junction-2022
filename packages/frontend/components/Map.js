@@ -166,7 +166,7 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
   }, [selectedNodeId])
 
   return (
-    <div className={styles.mapContainer} ref={mapContainer}></div>
+    <div className={styles.map} ref={mapContainer}></div>
   )
 }
 
