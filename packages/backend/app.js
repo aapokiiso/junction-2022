@@ -11,11 +11,11 @@ const port = process.env.PORT || 3000
 app.get('/nodes/', (req, res) => {
 
   const connection = mysql.createConnection({
-    host: 'db',
-    user: 'root',
-    password: process.env.MYSQL_ROOT_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME || 'root',
+    password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
+    database: process.env.DB_NAME || process.env.MYSQL_DATABASE,
+    socketPath: process.env.DB_SOCKET_PATH
   });
 
   connection.query(
@@ -30,11 +30,11 @@ app.get('/nodes/', (req, res) => {
 app.patch('/nodes/:id', (req, res) => {
 
   const connection = mysql.createConnection({
-    host: 'db',
-    user: 'root',
-    password: process.env.MYSQL_ROOT_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME || 'root',
+    password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
+    database: process.env.DB_NAME || process.env.MYSQL_DATABASE,
+    socketPath: process.env.DB_SOCKET_PATH
   });
   var parameters = req.body;
 
@@ -50,11 +50,11 @@ app.patch('/nodes/:id', (req, res) => {
 app.get('/edges/', (req, res) => {
 
   const connection = mysql.createConnection({
-    host: 'db',
-    user: 'root',
-    password: process.env.MYSQL_ROOT_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME || 'root',
+    password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
+    database: process.env.DB_NAME || process.env.MYSQL_DATABASE,
+    socketPath: process.env.DB_SOCKET_PATH
   });
 
   connection.query(
