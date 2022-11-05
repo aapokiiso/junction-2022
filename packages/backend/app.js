@@ -51,6 +51,28 @@ app.patch('/nodes/:id', (req, res) => {
   );
 })
 
+app.patch('/edges/:id', (req, res) => {
+
+  const connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME || 'root',
+    password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
+    database: process.env.DB_NAME || process.env.MYSQL_DATABASE,
+    socketPath: process.env.DB_SOCKET_PATH,
+    charset: "utf8"
+  });
+  var parameters = req.body;
+
+  connection.query(
+    'UPDATE links SET deltaT=? WHERE id = ?',
+    [parameters.deltaT, req.params.id],
+    function(err, results, fields) {
+      console.log(err);
+      res.end();
+    }
+  );
+})
+
 app.get('/edges/', (req, res) => {
 
   const connection = mysql.createConnection({
