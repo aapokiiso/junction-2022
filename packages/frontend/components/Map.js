@@ -24,33 +24,54 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
     })
 
     map.current.on('load', () => {
-      // TODO: remove debug
-      console.log(map.current)
-
       map.current.addLayer(
         {
-          id: 'heating-building',
+          id: 'heating-producer',
           type: 'fill',
           source: 'composite',
           'source-layer': 'building',
           paint: {
-            'fill-outline-color': '#f00',
             'fill-color': '#f00',
+          },
+          filter: ['in', '$id', ...nodes
+            .filter(({type}) => type === 'producer')
+            .map(({mapboxId}) => mapboxId)
+            .filter(mapboxId => mapboxId)],
+        },
+        'settlement-label'
+      )
+
+      const maxDeltaT = Math.max(...nodes.map(({deltaT}) => deltaT))
+
+      const deltaTMatch = nodes
+        .filter(({mapboxId}) => mapboxId)
+        .reduce((acc, node) => {
+          return [...acc, node.mapboxId, Math.max(0, node.deltaT / maxDeltaT - 0.1)];
+        }, [])
+
+      map.current.addLayer(
+        {
+          id: 'heating-consumer',
+          type: 'fill',
+          source: 'composite',
+          'source-layer': 'building',
+          paint: {
+            'fill-color': '#008000',
             'fill-opacity': [
               'case',
               ['boolean', ['feature-state', 'hover'], false],
               1,
               ['boolean', ['feature-state', 'selected'], false],
               1,
-              0.5,
-            ],
+              ['match', ['id'], ...deltaTMatch, 0.5],
+            ]
           },
           filter: ['in', '$id', ...nodes
-            .filter(({type}) => type === 'producer' || type === 'consumer')
+            .filter(({type}) => type === 'consumer')
             .map(({mapboxId}) => mapboxId)
             .filter(mapboxId => mapboxId)],
         },
-        'settlement-label'
+        'heating-producer'
       )
 
       map.current.addSource('heating-pipe', {
@@ -88,9 +109,10 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
           'paint': {
             'line-color': '#0f0',
             'line-width': 8,
+            'line-opacity': 0.5,
           },
         },
-        'heating-building'
+        'heating-consumer'
       );
     })
 
@@ -113,7 +135,7 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
     })
 
     let hoveredStateId = null;
-    map.current.on('mousemove', 'heating-building', (e) => {
+    map.current.on('mousemove', 'heating-consumer', (e) => {
       if (e.features.length > 0) {
         if (hoveredStateId !== null) {
           map.current.setFeatureState(
@@ -130,7 +152,7 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
       }
     });
 
-    map.current.on('mouseleave', 'heating-building', () => {
+    map.current.on('mouseleave', 'heating-consumer', () => {
       if (hoveredStateId !== null) {
         map.current.setFeatureState(
           { source: 'composite', sourceLayer: 'building', id: hoveredStateId },
