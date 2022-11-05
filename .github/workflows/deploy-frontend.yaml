@@ -2,7 +2,7 @@ name: Deploy frontend
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   gae-deploy:
     name: Deploy to Google App Engine
