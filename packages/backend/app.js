@@ -3,12 +3,22 @@ require("dotenv").config();
 const mysql = require('mysql2')
 const Sequelize = require("sequelize");
 const cors = require('cors')
+const grid = require('./grid_analysis/grid')
 
 const app = express()
 app.use(express.json());
 app.use(cors())
 
 const port = process.env.PORT || 3000
+
+app.get('/calculation/', async (req,res) => {
+
+  const temperature = await grid();
+  res.status(200).json(temperature);
+
+
+
+});
 
 app.get('/nodes/', (req, res) => {
 
@@ -24,7 +34,7 @@ app.get('/nodes/', (req, res) => {
   connection.query(
     'SELECT nodes.* FROM `nodes`',
     function(err, results, fields) {
-
+      console.log(err)
       res.json(results); // results contains rows returned by server
     }
   );
@@ -43,8 +53,8 @@ app.patch('/nodes/:id', (req, res) => {
   var parameters = req.body;
 
   connection.query(
-    'UPDATE nodes SET power=? WHERE id = ?',
-    [parameters.power, req.params.id],
+    'UPDATE nodes SET power=?, deltaT=? WHERE id = ?',
+    [parameters.power, parameters.deltaT, req.params.id],
     function(err, results, fields) {
       res.end();
     }
