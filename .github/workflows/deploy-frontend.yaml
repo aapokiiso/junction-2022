@@ -13,20 +13,26 @@ jobs:
         working-directory: packages/frontend
     steps:
       - id: checkout
-        name: Checkout
+        name: Checkout code
         uses: actions/checkout@v3
 
-      - id: build
-        name: Build
+      - id: nodejs
+        name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: npm
-      - run: npm ci
-      - run: npm run build
+
+      - id: npm-deps
+        name: Install deps
+        run: npm ci
+
+      - id: build
+        name: Build
+        run: npm run build
 
       - id: env-config
-        name: Environment config
+        name: Env config
         env:
           NEXT_PUBLIC_MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
         run: envsubst < app.yaml.tpl > app.yaml
