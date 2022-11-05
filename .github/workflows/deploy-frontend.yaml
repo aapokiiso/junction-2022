@@ -24,11 +24,11 @@ jobs:
 
       - id: npm-deps
         name: Install deps
-        run: npm ci
+        run: npm ci -w packages/frontend
 
       - id: build
         name: Build
-        run: npm run build
+        run: npm run build -w packages/frontend
 
       - id: env-config
         name: Env config
