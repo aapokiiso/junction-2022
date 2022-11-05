@@ -1,6 +1,12 @@
-import '../public/App.css'
+import React, {useEffect, useState} from 'react'
+import { Dropdown } from 'react-dropdown-now';
+import 'react-dropdown-now/style.css';
+import Draggable from 'react-draggable';
+import Map from '../components/Map'
+import {fetchNodes, fetchEdges} from '../utils/api'
+import Head from 'next/head'
 
-function App() {
+export default function Index() {
   const [nodes, setNodes] = useState(null);
   const [edges, setEdges] = useState(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
