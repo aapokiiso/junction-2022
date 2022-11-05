@@ -18,16 +18,17 @@ const mysql = require('mysql2/promise');
     );
 
 
-    const get_return_temperature_flow = (nodes, links, start_node, temperature, flow, direction) => {
+    const get_return_temperature_flow = (nodes, links, start_node, temperature, flow, total_flow,direction) => {
         
         const share = 0.5;
-        const deltaT = 40;
+        // const deltaT = 40;
         // const link = links.find(x => x.source == start_node)[0];
 
         if (nodes.find(x=> x.name == start_node).type == "consumer") {
             console.log("HERE?")
-            console.log(temperature)
-            return [temperature-deltaT, flow]
+            console.log(nodes.find(x=> x.name == start_node))
+            // nodes.find(x=> x.name == start_node).deltaT
+            return [temperature-40, flow]
         }
 
         // console.log("links")
@@ -49,7 +50,12 @@ const mysql = require('mysql2/promise');
         for (let i = 0; i < next_nodes.length; i++) {
             console.log("debugging4")
             const next_node = next_nodes[i];
-            temps_and_flows.push(get_return_temperature_flow(nodes, links, next_node.target, temperature, flow/next_nodes.length));
+            // const node = nodes.find(x=> x.name == start_node)
+            console.log(links)
+            console.log(next_node)
+            const link = links.find(x=> x.source == next_node.source)
+            console.log(link)
+            temps_and_flows.push(get_return_temperature_flow(nodes, links, next_node.target, temperature, total_flow*(link.diameter/100), total_flow));
         };
 
         console.log("temps and flows")
@@ -67,7 +73,7 @@ const mysql = require('mysql2/promise');
         // return (999,3456453);
     }
 
-    const test = get_return_temperature_flow(nodes_results, links_results, nodes_results[0].name, 100, 1000,"out");
+    const test = get_return_temperature_flow(nodes_results, links_results, nodes_results[0].name, 100, 1000, 1000,"out");
     console.log("the final answer is:");
     console.log(test);
 
