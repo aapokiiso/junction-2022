@@ -11,6 +11,12 @@ export default function Index() {
   const [edges, setEdges] = useState(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
 
+  const COST_COMBINED = 100000;
+  const ENERGY = 20;
+  const REDUCED_EMIS = 30;
+  const MONEY = 25000;
+  const TIME_TO_ROI = COST_COMBINED / MONEY;
+
   const handleNodeSelect = (nodeId) => {
     setSelectedNodeId(nodeId)
   }
@@ -36,7 +42,6 @@ export default function Index() {
 
   return (
     <div className="App">
-
       <div>
         <Head>
           <title>District Heating</title>
@@ -82,8 +87,34 @@ export default function Index() {
             </div>}
             <Draggable bounds="body">
               <div className="stats">
-                <h3>Overall statistics</h3>
-                <p>Here we can have text that teels us stuff<br />More stuff<br />{}<br />Even more stuff</p>
+                <h3>Grid Statistics</h3>
+                <table>
+                  <tr>
+                    <td>Total investment cost:</td>
+                    <td></td>
+                    <td>{COST_COMBINED} €</td>
+                  </tr>
+                  <tr>
+                    <td>Total energy conservation:</td>
+                    <td></td>
+                    <td>{ENERGY} MWh / year</td>
+                  </tr>
+                  <tr>
+                    <td>CO² emissions reduced by:</td>
+                    <td> </td>
+                    <td>{REDUCED_EMIS} tons / year</td>
+                  </tr>
+                  <tr>
+                    <td>Reduction in operating costs:</td>
+                    <td></td>
+                    <td>{MONEY} € / year</td>
+                  </tr>
+                  <tr>
+                    <td>Return on investment at:</td>
+                    <td></td>
+                    <td>{TIME_TO_ROI} years</td>
+                  </tr>
+                </table>
               </div>
             </Draggable>
           </div>
