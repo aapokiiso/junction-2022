@@ -1,4 +1,10 @@
 {
     "name": "junction-2022-backend",
-    "private": true
+    "private": true,
+    "dependencies": {
+        "express": "4.18.2"
+    },
+    "scripts":{
+        "dev": "node app.js"
+    }
 }

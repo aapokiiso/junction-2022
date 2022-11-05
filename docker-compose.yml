@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  backend:
+    image: node:16
+    build:
+      context: packages/backend
+    command: npm run dev
+    working_dir: /usr/src/app
+    env_file: .dev.env
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./packages/backend/:/usr/src/app:cached
+      - /usr/src/app/node_modules
+  frontend:
+    image: node:16
+    build:
+      context: packages/frontend
+    command: npm run dev
+
+    working_dir: /usr/src/app
+    env_file: .dev.env
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./packages/frontend/:/usr/src/app:cached
+      - /usr/src/app/node_modules
+
+  db:
+    image: mysql
+    restart: always
+    env_file:
+      - .dev.env
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db-data:
