@@ -47,7 +47,8 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
           },
           filter: ['in', '$id', ...nodes
             .filter(({type}) => type === 'producer' || type === 'consumer')
-            .map(({mapboxId}) => mapboxId)],
+            .map(({mapboxId}) => mapboxId)
+            .filter(mapboxId => mapboxId)],
         },
         'settlement-label'
       )
@@ -56,9 +57,9 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
         'type': 'geojson',
         'data': {
           'type': 'FeatureCollection',
-          'features': edges.map(([sourceId, targetId]) => {
-            const sourceNode = nodes.find(({id}) => id === sourceId)
-            const targetNode = nodes.find(({id}) => id === targetId)
+          'features': edges.map(([sourceName, targetName]) => {
+            const sourceNode = nodes.find(({name}) => name === sourceName)
+            const targetNode = nodes.find(({name}) => name === targetName)
 
             return {
               'type': 'Feature',

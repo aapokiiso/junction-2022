@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Map from '../components/Map'
 
-const nodes = [
+const dummyNodes = [
   {type: 'producer', id: 'St1', name: 'St1', mapboxId: 24408439, latitude: 60.18803446, longitude: 24.82800426},
   {type: 'consumer', id: 'Kandikeskus', name: 'Kandikeskus', mapboxId: 4148, latitude: 60.18653275, longitude: 24.82832467},
   {type: 'consumer', id: 'Nanotalo', name: 'Nanotalo', mapboxId: 11159678, latitude: 60.18698854, longitude: 24.82484653},
@@ -39,7 +39,7 @@ const nodes = [
   {type: 'junction', id: '19', name: '19', mapboxId: null, latitude: 60.18948619, longitude: 24.83871373},
 ]
 
-const edges = [
+const dummyEdges = [
   ['St1', '1'],
   ['1', '2'],
   ['1', '5'],
@@ -76,7 +76,32 @@ const edges = [
   ['19', 'JMT11'],
 ]
 
+const fetchNodes = async () => {
+  const response = await fetch('https://backend-dot-junction-2022-367623.lm.r.appspot.com/nodes');
+
+  const nodes = await response.json()
+
+  return nodes.map(node => {
+    node.latitude = Number(node.latitude.replace(',', '.'))
+    node.longitude = Number(node.longitude.replace(',', '.'))
+
+    node.mapboxId = dummyNodes.find(({name}) => name === node.name)?.mapboxId
+
+    return node
+  })
+}
+
+const fetchEdges = async () => {
+  const response = await fetch('https://backend-dot-junction-2022-367623.lm.r.appspot.com/edges');
+
+  const edges = await response.json()
+
+  return edges.map(({source, target}) => [source, target])
+}
+
 function Index () {
+  const [nodes, setNodes] = useState(null);
+  const [edges, setEdges] = useState(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
 
   const handleNodeSelect = (nodeId) => {
@@ -89,9 +114,21 @@ function Index () {
     }
   }, [selectedNodeId]);
 
+  useEffect(() => {
+    fetchNodes()
+      .then(nodes => {
+        setNodes(nodes)
+      })
+
+    fetchEdges()
+      .then(edges => {
+        setEdges(edges)
+      })
+  }, [])
+
   return (
     <main>
-        <Map nodes={nodes} edges={edges} selectedNodeId={selectedNodeId} handleNodeSelect={handleNodeSelect} />
+        {nodes && edges && <Map nodes={nodes} edges={edges} selectedNodeId={selectedNodeId} handleNodeSelect={handleNodeSelect} />}
     </main>
   )
 }
