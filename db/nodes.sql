@@ -20,7 +20,7 @@ INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consume
 INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','Dipoli',60.18512581,24.83247243,4252954,40);
 INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','A Blanc',60.18468969,24.83032829,7589907,36);
 INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','OK18',60.18809503,24.83551164,4259264,45);
-INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','JMT1',60.18691892,24.83484714,24334123,45);
+INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','JMT1',60.18684031344361,24.8348174577809,24334123,45);
 INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','Teekkarimuseo',60.18732858,24.83637993,24333970,55);
 INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','JMT6',60.18849146,24.8373634,24334231,40);
 INSERT INTO nodes(type,name,latitude,longitude,mapboxid,deltaT) VALUES ('consumer','JMT11',60.18938122,24.83902024,24334286,45);

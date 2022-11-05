@@ -38,6 +38,7 @@ app.get('/nodes/', (req, res) => {
       res.json(results); // results contains rows returned by server
     }
   );
+  connection.end();
 })
 
 app.patch('/nodes/:id', (req, res) => {
@@ -59,6 +60,7 @@ app.patch('/nodes/:id', (req, res) => {
       res.end();
     }
   );
+  connection.end();
 })
 
 app.patch('/edges/:id', (req, res) => {
@@ -81,6 +83,7 @@ app.patch('/edges/:id', (req, res) => {
       res.end();
     }
   );
+  connection.end();
 })
 
 app.get('/edges/', (req, res) => {
@@ -101,6 +104,7 @@ app.get('/edges/', (req, res) => {
       res.json(results); // results contains rows returned by server
     }
   );
+  connection.end();
 })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
