@@ -1,14 +1,13 @@
-name: "Deploy frontend"
+name: Deploy frontend
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+    branches:
+      - main
 jobs:
   gae-deploy:
-    name: "Google App Engine deployment"
+    name: Deploy to Google App Engine
     runs-on: ubuntu-latest
+    environment: test
     steps:
       - id: "auth"
         uses: "google-github-actions/auth@v0"
