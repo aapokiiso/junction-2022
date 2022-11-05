@@ -1,3 +1,0 @@
-runtime: nodejs16
-env_variables:
-  NEXT_PUBLIC_MAPBOX_TOKEN: $NEXT_PUBLIC_MAPBOX_TOKEN
