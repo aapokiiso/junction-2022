@@ -3,16 +3,16 @@
 ## REST API for managing district heating operators
 
 
-POST /operators/
+PUT /nodes/id/
 - name: str
 - power: float
-- type: str(provider or consumer)
-- threshold_temperature: float. null for type=consumer
+- type: str(provider or consumer or junction)
+- threshold_temperature: float. null for type=consumer 
 - latitude: float
 - longitude: float
 
-GET /operators/
-
-GET /operators/id/
-- from POST /operators/
-- neighbors: list of ids
+GET /nodes/
+- nodes:
+  - from POST /nodes/
+  - neighbors: list of ids
+- (edges:)
