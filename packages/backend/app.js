@@ -17,7 +17,8 @@ app.get('/nodes/', (req, res) => {
     user: process.env.DB_USERNAME || 'root',
     password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
     database: process.env.DB_NAME || process.env.MYSQL_DATABASE,
-    socketPath: process.env.DB_SOCKET_PATH
+    socketPath: process.env.DB_SOCKET_PATH,
+    charset: "utf8"
   });
 
   connection.query(
@@ -36,7 +37,8 @@ app.patch('/nodes/:id', (req, res) => {
     user: process.env.DB_USERNAME || 'root',
     password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
     database: process.env.DB_NAME || process.env.MYSQL_DATABASE,
-    socketPath: process.env.DB_SOCKET_PATH
+    socketPath: process.env.DB_SOCKET_PATH,
+    charset: "utf8"
   });
   var parameters = req.body;
 
@@ -56,7 +58,8 @@ app.get('/edges/', (req, res) => {
     user: process.env.DB_USERNAME || 'root',
     password: process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
     database: process.env.DB_NAME || process.env.MYSQL_DATABASE,
-    socketPath: process.env.DB_SOCKET_PATH
+    socketPath: process.env.DB_SOCKET_PATH,
+    charset: "utf8"
   });
 
   connection.query(
