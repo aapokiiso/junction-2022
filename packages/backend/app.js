@@ -15,6 +15,7 @@ app.get('/nodes/', (req, res) => {
     user: 'root',
     password: process.env.MYSQL_ROOT_PASSWORD,
     database: process.env.MYSQL_DATABASE,
+    charset: "utf8"
 
   });
 
@@ -34,6 +35,7 @@ app.patch('/nodes/:id', (req, res) => {
     user: 'root',
     password: process.env.MYSQL_ROOT_PASSWORD,
     database: process.env.MYSQL_DATABASE,
+    charset: "utf8_general_ci"
 
   });
   var parameters = req.body;
@@ -54,6 +56,7 @@ app.get('/edges/', (req, res) => {
     user: 'root',
     password: process.env.MYSQL_ROOT_PASSWORD,
     database: process.env.MYSQL_DATABASE,
+    charset: "utf8_general_ci"
 
   });
 
