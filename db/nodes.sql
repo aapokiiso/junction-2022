@@ -6,24 +6,25 @@ CREATE TABLE nodes(
   ,name      VARCHAR(200) NOT NULL
   ,latitude  VARCHAR(200) NOT NULL
   ,longitude VARCHAR(200) NOT NULL
+  ,mapboxid  INTEGER
 
 );
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('producer',0,'St1','60,18803446','24,82800426');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Kandikeskus','60,18653275','24,82832467');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Nanotalo','60,18698854','24,82484653');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Konetalo','60,18723004','24,82669374');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Sähkötalo','60,18901735','24,83140802');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Kvarkki','60,18824527','24,8301013');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Raksatalo','60,18732835','24,8315244');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'OK20','60,18679975','24,83373056');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Täffä','60,18607292','24,83297745');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Dipoli','60,18512581','24,83247243');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'A Blanc','60,18468969','24,83032829');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'OK18','60,18809503','24,83551164');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'JMT1','60,18691892','24,83484714');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Teekkarimuseo','60,18732858','24,83637993');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'JMT6','60,18849146','24,8373634');
-INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'JMT11','60,18938122','24,83902024');
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('producer',0,'St1','60,18803446','24,82800426', 24408439);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Kandikeskus','60,18653275','24,82832467', 4148);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Nanotalo','60,18698854','24,82484653', 11159678);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Konetalo','60,18723004','24,82669374', 156903276);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Sähkötalo','60,18901735','24,83140802', 24342454);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Kvarkki','60,18824527','24,8301013', 1402504);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Raksatalo','60,18732835','24,8315244', 7579330);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'OK20','60,18679975','24,83373056', 24334160);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Täffä','60,18607292','24,83297745', 4252953);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Dipoli','60,18512581','24,83247243', 4252954);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'A Blanc','60,18468969','24,83032829', 7589907);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'OK18','60,18809503','24,83551164', 4259264);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'JMT1','60,18691892','24,83484714',24334123);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'Teekkarimuseo','60,18732858','24,83637993', 24333970);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'JMT6','60,18849146','24,8373634', 24334231);
+INSERT INTO nodes(type,power,name,latitude,longitude, mapboxid) VALUES ('consumer',0,'JMT11','60,18938122','24,83902024', 24334286);
 INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('junction',0,'1','60,18780909','24,8285705');
 INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('junction',0,'2','60,1870675','24,82765256');
 INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('junction',0,'3','60,18676515','24,82717064');
