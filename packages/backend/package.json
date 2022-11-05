@@ -9,6 +9,7 @@
         "sequelize": "6.25.3"
     },
     "scripts":{
-        "dev": "nodemon app.js"
+        "dev": "DB_HOST=db nodemon app.js",
+        "start": "node app.js"
     }
 }

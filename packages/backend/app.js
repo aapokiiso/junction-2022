@@ -7,15 +7,21 @@ const app = express()
 const port = 3000
 
 app.get('/', (req, res) => {
-   
+
 
     const sequelize = new Sequelize(
       process.env.MYSQL_DATABASE,
       'root',
       process.env.MYSQL_ROOT_PASSWORD,
         {
-          host: 'db',
-          dialect: 'mysql'
+          host: process.env.DB_HOST,
+          username: process.env.DB_USERNAME,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_NAME,
+          dialect: 'mysql',
+          dialectOptions: {
+            socketPath: process.env.DB_SOCKET_PATH,
+          },
         }
       );
 
@@ -25,7 +31,7 @@ app.get('/', (req, res) => {
       console.error('Unable to connect to the database: ', error);
     });
 
-  
+
   res.end("asd")
 })
 

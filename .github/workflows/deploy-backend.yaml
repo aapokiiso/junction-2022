@@ -1,4 +1,4 @@
-name: Deploy frontend
+name: Deploy backend
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ jobs:
     environment: test
     defaults:
       run:
-        working-directory: packages/frontend
+        working-directory: packages/backend
     steps:
       - id: checkout
         name: Checkout code
@@ -27,11 +27,14 @@ jobs:
         name: Install deps
         run: npm install
 
-      - id: build
-        name: Build
+      - id: env-config
+        name: Env config
         env:
-          NEXT_PUBLIC_MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
-        run: npm run build
+          DB_NAME: "${{ secrets.DB_NAME }}"
+          DB_USERNAME: "${{ secrets.DB_USERNAME }}"
+          DB_PASSWORD: "${{ secrets.DB_PASSWORD }}"
+          DB_SOCKET_PATH: "${{ secrets.DB_SOCKET_PATH }}"
+        run: envsubst < app.yaml.tpl > app.yaml
 
       - id: gcp-auth
         name: GCP Auth
@@ -43,4 +46,4 @@ jobs:
         name: Deploy
         uses: "google-github-actions/deploy-appengine@v0"
         with:
-          working_directory: packages/frontend
+          working_directory: packages/backend
