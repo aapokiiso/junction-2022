@@ -21,6 +21,25 @@ function Map() {
         map.current.on('load', () => {
             console.log(map.current)
 
+            const ids = [
+                24408439,
+                4148,
+                11159678,
+                156903276,
+                24342454,
+                1402504,
+                7579330,
+                24334160,
+                4252953,
+                4252954,
+                7589907,
+                4259264,
+                24334123,
+                24333970,
+                24334231,
+                24334286
+            ]
+
             map.current.addLayer(
                 {
                     'id': 'buildings-highlighted',
@@ -32,9 +51,18 @@ function Map() {
                         'fill-color': '#f00',
                         'fill-opacity': 0.5
                     },
+                    'filter': ['in', '$id', ...ids]
                 },
                 'settlement-label'
             );
+        })
+
+        // TODO: remove debug
+        map.current.on('click', (event) => {
+            const features = map.current.queryRenderedFeatures(event.point, {
+                layers: ['building'],
+            })
+            console.log(features)
         })
     })
 
