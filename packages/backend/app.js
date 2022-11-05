@@ -24,7 +24,7 @@ app.get('/nodes/', (req, res) => {
   connection.query(
     'SELECT nodes.* FROM `nodes`',
     function(err, results, fields) {
-
+      console.log(err)
       res.json(results); // results contains rows returned by server
     }
   );
@@ -43,8 +43,8 @@ app.patch('/nodes/:id', (req, res) => {
   var parameters = req.body;
 
   connection.query(
-    'UPDATE nodes SET power=? WHERE id = ?',
-    [parameters.power, req.params.id],
+    'UPDATE nodes SET power=?, deltaT=? WHERE id = ?',
+    [parameters.power, parameters.deltaT, req.params.id],
     function(err, results, fields) {
       res.end();
     }
