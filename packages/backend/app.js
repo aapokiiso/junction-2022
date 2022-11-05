@@ -10,14 +10,11 @@ app.get('/', (req, res) => {
 
 
     const sequelize = new Sequelize(
-      process.env.MYSQL_DATABASE,
-      'root',
-      process.env.MYSQL_ROOT_PASSWORD,
+      process.env.DB_NAME || process.env.MYSQL_DATABASE,
+      process.env.DB_USERNAME || 'root',
+      process.env.DB_PASSWORD || process.env.MYSQL_ROOT_PASSWORD,
         {
           host: process.env.DB_HOST,
-          username: process.env.DB_USERNAME,
-          password: process.env.DB_PASSWORD,
-          database: process.env.DB_NAME,
           dialect: 'mysql',
           dialectOptions: {
             socketPath: process.env.DB_SOCKET_PATH,
