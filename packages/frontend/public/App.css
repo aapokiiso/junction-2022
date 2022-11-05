@@ -1,4 +1,8 @@
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 .App {
   background-color: #191a1a;
@@ -8,12 +12,9 @@
 h2 {
   margin: 20px;
 }
+
 p {
   color: white;
-}
-
-.mapContainer {
-  position: relative;
 }
 
 .App-header {
@@ -21,6 +22,7 @@ p {
   min-height: 10vh;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-justify: auto;
 }
 
 .App-body {
@@ -48,6 +50,13 @@ p {
   width: 75%;
   min-height: 88vh;
 }
+
+.mapContainer {
+  position: absolute;
+  width: 75vw;
+  height: 88vh;
+}
+
 
 /* Clear floats after the columns */
 .row:after {
