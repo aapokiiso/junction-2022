@@ -1,3 +1,4 @@
+SET NAMES utf8;
 CREATE TABLE nodes(
    id        INTEGER PRIMARY KEY AUTO_INCREMENT
   ,type      VARCHAR(200) NOT NULL
@@ -5,6 +6,7 @@ CREATE TABLE nodes(
   ,name      VARCHAR(200) NOT NULL
   ,latitude  VARCHAR(200) NOT NULL
   ,longitude VARCHAR(200) NOT NULL
+
 );
 INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('producer',0,'St1','60,18803446','24,82800426');
 INSERT INTO nodes(type,power,name,latitude,longitude) VALUES ('consumer',0,'Kandikeskus','60,18653275','24,82832467');
