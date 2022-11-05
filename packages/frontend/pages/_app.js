@@ -1,15 +1,56 @@
-import './App.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import placeholder from './placeholder.jpg';
+import React, {useEffect, useState} from 'react'
+import ReactDOM from 'react-dom/client';
 import { Dropdown, Selection } from 'react-dropdown-now';
 import 'react-dropdown-now/style.css';
 import Draggable from 'react-draggable';
-
+import Map from '../components/Map'
+import {fetchNodes, fetchEdges} from '../utils/api'
+import "../public/App.css"
+import Head from 'next/head'
 
 function App() {
+  const [nodes, setNodes] = useState(null);
+  const [edges, setEdges] = useState(null);
+  const [selectedNodeId, setSelectedNodeId] = useState(null);
+
+  const handleNodeSelect = (nodeId) => {
+    setSelectedNodeId(nodeId)
+  }
+
+  useEffect(() => {
+    if (selectedNodeId) {
+      // TODO: open editor
+    }
+  }, [selectedNodeId]);
+
+  useEffect(() => {
+    fetchNodes()
+      .then(nodes => {
+        setNodes(nodes)
+      })
+
+    fetchEdges()
+      .then(edges => {
+        setEdges(edges)
+      })
+  }, [])
+
+
   return (
     <div className="App">
+
+      <div>
+        <Head>
+          <title>District Heating</title>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#000000" />
+          <meta
+            name="description"
+            content="Web app for analysing district heating"
+          />
+        </Head>
+      </div>
 
       <header className="App-header">
         <h1>District Heating Tool</h1>
@@ -32,6 +73,14 @@ function App() {
             />
           </div>
           <div className="column-right">
+            {nodes && edges && <div className="mapContainer">
+              <Map
+                nodes={nodes}
+                edges={edges}
+                selectedNodeId={selectedNodeId}
+                handleNodeSelect={handleNodeSelect}
+              />
+            </div>}
             <Draggable bounds="body">
               <div className="stats">
                 <h3>Overall statistics</h3>
