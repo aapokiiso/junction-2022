@@ -15,10 +15,10 @@ export default function Index() {
   const [finalTemperature, setFinalTemperature] = useState(null)
   const [deltaTLog, setDeltaTLog] = useState([])
 
-  const COST_COMBINED = (nodes ? nodes.length : 0)*100000;
-  const ENERGY_SAVINGS = Math.round(40*24*365*(55/finalTemperature));
-  const REDUCED_EMIS = Math.round(177*ENERGY_SAVINGS);
-  const MONEY_SAVINGS = Math.round(48*ENERGY_SAVINGS);
+  const COST_COMBINED = (nodes ? nodes.filter(({type}) => type === 'consumer').length : 0)*10000;
+  const ENERGY_SAVINGS = Math.round(35300*55/finalTemperature);
+  const REDUCED_EMIS = Math.round(0.336*ENERGY_SAVINGS);
+  const MONEY_SAVINGS = Math.round(0.4*ENERGY_SAVINGS);
   const TIME_TO_ROI = Math.round(COST_COMBINED / MONEY_SAVINGS);
 
   const refreshData = () => {
