@@ -5,7 +5,6 @@ import Draggable from 'react-draggable';
 import Map from '../components/Map'
 import {fetchNodes, fetchEdges, updateDeltaTForBuilding, fetchFinalTemperature} from '../utils/api'
 import Head from 'next/head'
-import { roundDecimals } from '../utils/round';
 
 export default function Index() {
   const [nodes, setNodes] = useState(null);
@@ -16,8 +15,8 @@ export default function Index() {
   const [finalTemperature, setFinalTemperature] = useState(null)
   const [deltaTLog, setDeltaTLog] = useState([])
 
-  const COST_COMBINED = nodes.length*100000;
-  const ENERGY_SAVINGS = Math.round(3530*55/finalTemperature);
+  const COST_COMBINED = (nodes ? nodes.length : 0)*100000;
+  const ENERGY_SAVINGS = Math.round(40*24*365*(55/finalTemperature));
   const REDUCED_EMIS = Math.round(177*ENERGY_SAVINGS);
   const MONEY_SAVINGS = Math.round(48*ENERGY_SAVINGS);
   const TIME_TO_ROI = Math.round(COST_COMBINED / MONEY_SAVINGS);
@@ -111,7 +110,7 @@ export default function Index() {
             </div>
             <div>
               <h2>Delta T changelog</h2>
-              <ol style={{"text-align": "left", "margin": "0 20px"}}>
+              <ol style={{"textAlign": "left", "margin": "0 20px"}}>
               {deltaTLog.map((event) => (
                 <li>{event[0]} set to {event[1]} °C <span style={{float: "right", color: (event[2]>0 ? "green" : "red")}}>{event[2]} °C</span></li>
               ))}
