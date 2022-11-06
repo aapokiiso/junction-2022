@@ -45,7 +45,10 @@ p {
   float: left;
   width: 25%;
   min-height: 88vh;
-  align-items: center;
+}
+
+.DeltaTSetter {
+  font-size: large;
 }
 
 .dropdownChooser {

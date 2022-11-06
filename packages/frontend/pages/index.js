@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import { Dropdown } from 'react-dropdown-now';
-import 'react-dropdown-now/style.css';
 import Draggable from 'react-draggable';
 import Map from '../components/Map'
 import {fetchNodes, fetchEdges, updateDeltaTForBuilding, fetchFinalTemperature} from '../utils/api'
 import Head from 'next/head'
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+import RangeSlider from 'react-bootstrap-range-slider';
+
 
 export default function Index() {
   const [nodes, setNodes] = useState(null);
@@ -48,19 +49,17 @@ export default function Index() {
   const handleDeltaTChange = (event) => {
     setDeltaTValue(parseInt(event.target.value,10))
   }
+
   let prevSystemTemp
   const handleFormSubmit = async (event) => {
     console.log(deltaTValue)
     prevSystemTemp = finalTemperature;
     updateDeltaTForBuilding(selectedNodeId, deltaTValue).then(
       ()=> {
-
         refreshData()
       }
     )
-
     event.preventDefault();
-
   }
 
   useEffect(() => {
@@ -76,6 +75,16 @@ export default function Index() {
   useEffect(() => {
     refreshData()
   }, [])
+
+  const MyComponent = () => {
+    const [ value ] = useState(0); 
+    return (
+      <RangeSlider
+        value={deltaTValue}
+        onChange={changeEvent => setDeltaTValue(changeEvent.target.value)}
+      />
+    );
+  };
 
   return (
     <div className="App">
@@ -102,17 +111,18 @@ export default function Index() {
         <div className="row">
           <div className="column-left">
             <div id="building-parameters" style={{"display": selectedNodeId ? "block" : "none"}}>
-              <h2>Set Delta T for {selectedNodeName}</h2>
-              <form onSubmit={handleFormSubmit}>
-                <input type="number" min="0" max="100" name="deltaT" value={deltaTValue} onChange={handleDeltaTChange} />
-                <input type="submit"  />
+              <h2>Set temperature change for {selectedNodeName} -circuit</h2>
+              <form onSubmit={handleFormSubmit} className = "DeltaTSetter">
+                <MyComponent></MyComponent>
+                <p>{deltaTValue}</p>
+                <input type="submit" value="Log value" onclick={handleDeltaTChange}></input>
               </form>
             </div>
             <div>
               <h2>Delta T changelog</h2>
               <ol style={{"textAlign": "left", "margin": "0px 10px 0px 30px"}}>
               {deltaTLog.map((event) => (
-                <li>{event[0]} set to {event[1]} °C <span style={{float: "right", color: (event[2]>0 ? "green" : "red")}}>{event[2]} °C</span></li>
+                <li>{event[0]} uses {event[1]}°C effectively<span style={{float: "right", color: (event[2]>0 ? "green" : "red")}}>{event[2]} °C</span></li>
               ))}
               </ol>
             </div>
@@ -167,7 +177,7 @@ export default function Index() {
 
       <footer className="App-footer">
         <p>
-          Application created by Junkkaritiimi.
+          Application created by Junkkaritiimi ADHD.
         </p>
       </footer>
     </div>
