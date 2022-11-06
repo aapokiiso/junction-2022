@@ -4,5 +4,8 @@
     "workspaces": [
         "packages/backend",
         "packages/frontend"
-    ]
+    ],
+    "dependencies": {
+        "range-slider": "^1.0.2"
+    }
 }
