@@ -92,7 +92,8 @@ export default function Index() {
       </div>
 
       <header className="App-header">
-        <h1>District Heating Tool</h1>
+        <img src="/static/logo1dark.svg" alt="Logo 1 Dark" className="logo"></img>
+        <h1>Advanced District Heating Dashboard</h1>
       </header>
 
       <div className="App-body">

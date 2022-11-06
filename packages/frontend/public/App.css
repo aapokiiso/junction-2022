@@ -24,6 +24,13 @@ p {
   font-size: calc(10px + 2vmin);
   color: white;
   text-justify: auto;
+  align-content: center;
+}
+
+.logo {
+  position: sticky;
+  width: 7vw;
+  height: 7vh;
 }
 
 .App-body {
