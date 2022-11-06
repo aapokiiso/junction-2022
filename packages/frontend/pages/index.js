@@ -20,6 +20,23 @@ export default function Index() {
   const MONEY = 25000;
   const TIME_TO_ROI = COST_COMBINED / MONEY;
 
+  const refreshData = () => {
+    fetchNodes()
+      .then(nodes => {
+        setNodes(nodes)
+      })
+
+    fetchEdges()
+      .then(edges => {
+        setEdges(edges)
+      })
+
+    fetchFinalTemperature()
+      .then(temperature => {
+        setFinalTemperature(temperature)
+      })
+  }
+
   const handleNodeSelect = (nodeId) => {
     setSelectedNodeId(nodeId)
   }
@@ -33,11 +50,7 @@ export default function Index() {
 
     updateDeltaTForBuilding(selectedNodeId, deltaTValue).then(
       ()=> {
-        fetchNodes()
-        .then(nodes => {
-          setNodes(nodes)
-        })
-
+        refreshData()
       }
     )
 
@@ -56,20 +69,7 @@ export default function Index() {
   }, [selectedNodeId]);
 
   useEffect(() => {
-    fetchNodes()
-      .then(nodes => {
-        setNodes(nodes)
-      })
-
-    fetchEdges()
-      .then(edges => {
-        setEdges(edges)
-      })
-
-    fetchFinalTemperature()
-      .then(temperature => {
-        setFinalTemperature(temperature)
-      })
+    refreshData()
   }, [])
 
 
@@ -130,31 +130,33 @@ export default function Index() {
               <div className="stats">
                 <h3>Grid Statistics</h3>
                 <table>
-                  <tr>
-                    <td>Total investment cost:</td>
-                    <td></td>
-                    <td>{COST_COMBINED} €</td>
-                  </tr>
-                  <tr>
-                    <td>Total energy conservation:</td>
-                    <td></td>
-                    <td>{ENERGY} MWh / year</td>
-                  </tr>
-                  <tr>
-                    <td>CO² emissions reduced by:</td>
-                    <td> </td>
-                    <td>{REDUCED_EMIS} tons / year</td>
-                  </tr>
-                  <tr>
-                    <td>Reduction in operating costs:</td>
-                    <td></td>
-                    <td>{MONEY} € / year</td>
-                  </tr>
-                  <tr>
-                    <td>Return on investment at:</td>
-                    <td></td>
-                    <td>{TIME_TO_ROI} years</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>Total investment cost:</td>
+                      <td></td>
+                      <td>{COST_COMBINED} €</td>
+                    </tr>
+                    <tr>
+                      <td>Total energy conservation:</td>
+                      <td></td>
+                      <td>{ENERGY} MWh / year</td>
+                    </tr>
+                    <tr>
+                      <td>CO² emissions reduced by:</td>
+                      <td> </td>
+                      <td>{REDUCED_EMIS} tons / year</td>
+                    </tr>
+                    <tr>
+                      <td>Reduction in operating costs:</td>
+                      <td></td>
+                      <td>{MONEY} € / year</td>
+                    </tr>
+                    <tr>
+                      <td>Return on investment at:</td>
+                      <td></td>
+                      <td>{TIME_TO_ROI} years</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </Draggable>
