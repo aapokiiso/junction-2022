@@ -13,6 +13,7 @@ export default function Index() {
   const [selectedNodeName, setNodeName] = useState(null);
   const [deltaTValue, setDeltaTValue] = useState('');
   const [finalTemperature, setFinalTemperature] = useState(null)
+  const [deltaTLog, setDeltaTLog] = useState([])
 
   const COST_COMBINED = 100000;
   const ENERGY = 20;
@@ -47,9 +48,10 @@ export default function Index() {
 
   const handleFormSubmit = async (event) => {
     console.log(deltaTValue)
-
+    let prevSystemTemp = finalTemperature;
     updateDeltaTForBuilding(selectedNodeId, deltaTValue).then(
       ()=> {
+        setDeltaTLog(oldArray => [...oldArray, [selectedNodeName,deltaTValue,(prevSystemTemp-finalTemperature)]])
         refreshData()
       }
     )
@@ -115,6 +117,14 @@ export default function Index() {
               onClose={(closedBySelection) => console.log('closedBySelection?:', closedBySelection)}
               onOpen={() => console.log('open!')}
             />
+            <div>
+              <h2>Delta T changelog</h2>
+              <ol style={{"text-align": "left", "margin": "0 20px"}}>
+              {deltaTLog.map((event) => (
+                <li>{event[0]} set to {event[1]} <span style={{float: "right", color: (event[2]>0 ? "green" : "red")}}>{event[2]}</span></li>
+              ))}
+              </ol>
+            </div>
           </div>
           <div className="column-right">
             {nodes && edges && finalTemperature !== null && <div className="mapContainer">
