@@ -81,21 +81,21 @@ export default function Index() {
     <div className="App">
       <div>
         <Head>
-          <title>District Heating</title>
+          <title>District Heating Dashboard</title>
           <meta charSet="utf-8" />
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#000000" />
           <meta
             name="description"
-            content="Web app for analysing district heating"
+            content="Advanced Dashboard for analysing district heating"
           />
         </Head>
       </div>
 
       <header className="App-header">
         <img src="/static/logo1dark.svg" alt="Logo 1 Dark" className="logo"></img>
-        <h1>Advanced District Heating Dashboard</h1>
+        <h1 className="logo">Advanced District Heating Dashboard</h1>
       </header>
 
       <div className="App-body">
