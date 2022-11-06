@@ -5,6 +5,7 @@ import Draggable from 'react-draggable';
 import Map from '../components/Map'
 import {fetchNodes, fetchEdges, updateDeltaTForBuilding, fetchFinalTemperature} from '../utils/api'
 import Head from 'next/head'
+import { roundDecimals } from '../utils/round';
 
 export default function Index() {
   const [nodes, setNodes] = useState(null);
@@ -15,11 +16,11 @@ export default function Index() {
   const [finalTemperature, setFinalTemperature] = useState(null)
   const [deltaTLog, setDeltaTLog] = useState([])
 
-  const COST_COMBINED = 100000;
-  const ENERGY = 20;
-  const REDUCED_EMIS = 30;
-  const MONEY = 25000;
-  const TIME_TO_ROI = COST_COMBINED / MONEY;
+  const COST_COMBINED = nodes.length*100000;
+  const ENERGY_SAVINGS = Math.round(3530*55/finalTemperature);
+  const REDUCED_EMIS = Math.round(177*ENERGY_SAVINGS);
+  const MONEY_SAVINGS = Math.round(48*ENERGY_SAVINGS);
+  const TIME_TO_ROI = Math.round(COST_COMBINED / MONEY_SAVINGS);
 
   const refreshData = () => {
     fetchNodes()
@@ -72,10 +73,10 @@ export default function Index() {
       // TODO: open editor
     }
   }, [selectedNodeId]);
+
   useEffect(() => {
     refreshData()
   }, [])
-
 
   return (
     <div className="App">
@@ -140,7 +141,7 @@ export default function Index() {
                     <tr>
                       <td>Total energy conservation:</td>
                       <td></td>
-                      <td>{ENERGY} MWh / year</td>
+                      <td>{ENERGY_SAVINGS} MWh / year</td>
                     </tr>
                     <tr>
                       <td>CO² emissions reduced by:</td>
@@ -150,7 +151,7 @@ export default function Index() {
                     <tr>
                       <td>Reduction in operating costs:</td>
                       <td></td>
-                      <td>{MONEY} € / year</td>
+                      <td>{MONEY_SAVINGS} € / year</td>
                     </tr>
                     <tr>
                       <td>Return on investment at:</td>
