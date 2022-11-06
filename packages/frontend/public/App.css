@@ -20,8 +20,9 @@ p {
 
 .App-header {
   background-color: #191a1a;
+  padding-top: 1.5vh;
   min-height: 10vh;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
   color: white;
   text-align: center;
 }
@@ -94,8 +95,8 @@ p {
   margin-top: 10vh;
   margin-left: 25vw;
   margin-right: 0vw;
-  width: 23%;
-  height: 19%;
+  width: 23vw;
+  height: 20vh;
   border-radius: 12px;
   position: fixed;
   bottom: 2vh;

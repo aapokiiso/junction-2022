@@ -110,7 +110,7 @@ export default function Index() {
             </div>
             <div>
               <h2>Delta T changelog</h2>
-              <ol style={{"text-align": "left", "margin": "0 20px"}}>
+              <ol style={{"text-align": "left", "margin": "0px 10px 0px 30px"}}>
               {deltaTLog.map((event) => (
                 <li>{event[0]} set to {event[1]} °C <span style={{float: "right", color: (event[2]>0 ? "green" : "red")}}>{event[2]} °C</span></li>
               ))}
