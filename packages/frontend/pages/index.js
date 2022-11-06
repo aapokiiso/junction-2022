@@ -34,6 +34,9 @@ export default function Index() {
 
     fetchFinalTemperature()
       .then(temperature => {
+        if (finalTemperature) {
+        setDeltaTLog(oldArray => [...oldArray, [selectedNodeName,deltaTValue,Math.round((finalTemperature-temperature)*100,2)/100]])
+        }
         setFinalTemperature(temperature)
       })
   }
@@ -45,13 +48,13 @@ export default function Index() {
   const handleDeltaTChange = (event) => {
     setDeltaTValue(parseInt(event.target.value,10))
   }
-
+  let prevSystemTemp
   const handleFormSubmit = async (event) => {
     console.log(deltaTValue)
-    let prevSystemTemp = finalTemperature;
+    prevSystemTemp = finalTemperature;
     updateDeltaTForBuilding(selectedNodeId, deltaTValue).then(
       ()=> {
-        setDeltaTLog(oldArray => [...oldArray, [selectedNodeName,deltaTValue,(prevSystemTemp-finalTemperature)]])
+
         refreshData()
       }
     )
@@ -69,7 +72,6 @@ export default function Index() {
       // TODO: open editor
     }
   }, [selectedNodeId]);
-
   useEffect(() => {
     refreshData()
   }, [])
@@ -109,7 +111,7 @@ export default function Index() {
               <h2>Delta T changelog</h2>
               <ol style={{"text-align": "left", "margin": "0 20px"}}>
               {deltaTLog.map((event) => (
-                <li>{event[0]} set to {event[1]} <span style={{float: "right", color: (event[2]>0 ? "green" : "red")}}>{event[2]}</span></li>
+                <li>{event[0]} set to {event[1]} °C <span style={{float: "right", color: (event[2]>0 ? "green" : "red")}}>{event[2]} °C</span></li>
               ))}
               </ol>
             </div>
