@@ -23,13 +23,14 @@ p {
   min-height: 10vh;
   font-size: calc(10px + 2vmin);
   color: white;
-  text-justify: auto;
-  align-content: center;
+  text-align: center;
 }
 
 .logo {
+  display: inline-block;
+  vertical-align: middle;
   position: sticky;
-  width: 7vw;
+  width: 100;
   height: 7vh;
 }
 
@@ -89,14 +90,16 @@ p {
   background-color: #414b55;
   color: white;
   font-size: calc(2px + 2vmin);
-  align-self: center;
   margin-bottom: 2vh;
   margin-top: 10vh;
   margin-left: 25vw;
   margin-right: 0vw;
-  width: 30.5%;
-  height: 30%;
+  width: 23%;
+  height: 19%;
   border-radius: 12px;
+  position: fixed;
+  bottom: 2vh;
+  right: 2vw;
 }
 
 th, td {
