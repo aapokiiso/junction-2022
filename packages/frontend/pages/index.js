@@ -105,18 +105,6 @@ export default function Index() {
                 <input type="submit"  />
               </form>
             </div>
-            <h2>Set desired parameters</h2>
-            <div className="infoText" >Choose an area:</div>
-            <Dropdown
-              placeholder="Select an option"
-              className="dropdownChooser"
-              options={['Otaniemi', 'Turku', 'Helsinki']}
-              value="none"
-              onChange={(value) => console.log('changed!', value)}
-              onSelect={(value) => console.log('selected!', value)} // always fires once a selection happens even if there is no change
-              onClose={(closedBySelection) => console.log('closedBySelection?:', closedBySelection)}
-              onOpen={() => console.log('open!')}
-            />
             <div>
               <h2>Delta T changelog</h2>
               <ol style={{"text-align": "left", "margin": "0 20px"}}>
