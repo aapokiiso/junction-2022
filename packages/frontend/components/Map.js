@@ -5,7 +5,7 @@ import styles from './Map.module.css'
 
 import { useRef, useEffect } from 'react'
 
-function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
+function Map ({nodes, edges, selectedNodeId, finalTemperature, handleNodeSelect}) {
   const mapContainer = useRef(null)
   const map = useRef(null)
 
@@ -41,6 +41,28 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
         'settlement-label'
       )
 
+      const finalTemperatureMatch = nodes
+        .filter(({type}) => type === 'producer')
+        .reduce((acc, node) => {
+          // TODO: final temp per producer
+          const temperature = `${finalTemperature !== null ? finalTemperature : 9000} \xB0C`
+          return [...acc, node.mapboxId, temperature]
+        }, [])
+
+      map.current.addLayer({
+        id: 'heating-producer-final-temperature',
+        source: 'composite',
+        'source-layer': 'building',
+        type: 'symbol',
+        layout: {
+          'text-field': ['format', ['string', ['match', ['id'], ...finalTemperatureMatch, '']]],
+        },
+        filter: ['in', '$id', ...nodes
+          .filter(({type}) => type === 'producer')
+          .map(({mapboxId}) => mapboxId)
+          .filter(mapboxId => mapboxId)],
+      })
+
       const maxDeltaT = Math.max(...nodes.map(({deltaT}) => deltaT))
 
       const deltaTMatch = nodes
@@ -64,7 +86,7 @@ function Map ({nodes, edges, selectedNodeId, handleNodeSelect}) {
               ['boolean', ['feature-state', 'selected'], false],
               1,
               ['match', ['id'], ...deltaTMatch, 0.5],
-            ]
+            ],
           },
           filter: ['in', '$id', ...nodes
             .filter(({type}) => type === 'consumer')

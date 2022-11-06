@@ -20,6 +20,14 @@ export const fetchEdges = async () => {
   return edges.map(({source, target}) => [source, target])
 }
 
+export const fetchFinalTemperature = async () => {
+  const response = await fetch('https://backend-dot-junction-2022-367623.lm.r.appspot.com/calculation');
+
+  const temperature = await response.json()
+
+  return temperature
+}
+
 export const updateDeltaTForBuilding = async (nodeid, deltaT) => {
   const response = await fetch('https://backend-dot-junction-2022-367623.lm.r.appspot.com/nodes/'+nodeid, {
     method: 'PATCH',

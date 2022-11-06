@@ -3,7 +3,7 @@ import { Dropdown } from 'react-dropdown-now';
 import 'react-dropdown-now/style.css';
 import Draggable from 'react-draggable';
 import Map from '../components/Map'
-import {fetchNodes, fetchEdges, updateDeltaTForBuilding} from '../utils/api'
+import {fetchNodes, fetchEdges, updateDeltaTForBuilding, fetchFinalTemperature} from '../utils/api'
 import Head from 'next/head'
 
 export default function Index() {
@@ -12,6 +12,7 @@ export default function Index() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [selectedNodeName, setNodeName] = useState(null);
   const [deltaTValue, setDeltaTValue] = useState('');
+  const [finalTemperature, setFinalTemperature] = useState(null)
 
   const handleNodeSelect = (nodeId) => {
     setSelectedNodeId(nodeId)
@@ -57,6 +58,11 @@ export default function Index() {
     fetchEdges()
       .then(edges => {
         setEdges(edges)
+      })
+
+    fetchFinalTemperature()
+      .then(temperature => {
+        setFinalTemperature(temperature)
       })
   }, [])
 
@@ -106,11 +112,12 @@ export default function Index() {
             />
           </div>
           <div className="column-right">
-            {nodes && edges && <div className="mapContainer">
+            {nodes && edges && finalTemperature !== null && <div className="mapContainer">
               <Map
                 nodes={nodes}
                 edges={edges}
                 selectedNodeId={selectedNodeId}
+                finalTemperature={finalTemperature}
                 handleNodeSelect={handleNodeSelect}
               />
             </div>}
